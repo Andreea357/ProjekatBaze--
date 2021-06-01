@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjekatBaze
+namespace ProjekatBaze.Data
 {
-    public class Class1
+   public class KupacDA : Repository<Kupac>
     {
     }
 }

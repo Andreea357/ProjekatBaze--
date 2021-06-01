@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Butiks" EntityType="Model1.Store.Butiks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Kasas" EntityType="Model1.Store.Kasas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Radniks" EntityType="Model1.Store.Radniks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Racuns" EntityType="Model1.Store.Racuns" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Proizvods" EntityType="Model1.Store.Proizvods" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Kupacs" EntityType="Model1.Store.Kupacs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Kupujes" EntityType="Model1.Store.Kupujes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Prodavacs" EntityType="Model1.Store.Prodavacs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Menadzers" EntityType="Model1.Store.Menadzers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ButikRadnik" Association="Model1.Store.ButikRadnik">
+      <End Role="Butik" EntitySet="Butiks" />
+      <End Role="Radnik" EntitySet="Radniks" />
+    </AssociationSet>
+    <AssociationSet Name="ButikProizvod" Association="Model1.Store.ButikProizvod">
+      <End Role="Butik" EntitySet="Butiks" />
+      <End Role="Proizvod" EntitySet="Proizvods" />
+    </AssociationSet>
+    <AssociationSet Name="ButikKasa" Association="Model1.Store.ButikKasa">
+      <End Role="Butik" EntitySet="Butiks" />
+      <End Role="Kasa" EntitySet="Kasas" />
+    </AssociationSet>
+    <AssociationSet Name="MenadzerRadnik" Association="Model1.Store.MenadzerRadnik">
+      <End Role="Menadzer" EntitySet="Menadzers" />
+      <End Role="Radnik" EntitySet="Radniks" />
+    </AssociationSet>
+    <AssociationSet Name="RacunKupuje" Association="Model1.Store.RacunKupuje">
+      <End Role="Racun" EntitySet="Racuns" />
+      <End Role="Kupuje" EntitySet="Kupujes" />
+    </AssociationSet>
+    <AssociationSet Name="KasaRacun" Association="Model1.Store.KasaRacun">
+      <End Role="Kasa" EntitySet="Kasas" />
+      <End Role="Racun" EntitySet="Racuns" />
+    </AssociationSet>
+    <AssociationSet Name="ProizvodKupuje" Association="Model1.Store.ProizvodKupuje">
+      <End Role="Proizvod" EntitySet="Proizvods" />
+      <End Role="Kupuje" EntitySet="Kupujes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KupacKupuje" Association="Model1.Store.FK_KupacKupuje">
+      <End Role="Kupac" EntitySet="Kupacs" />
+      <End Role="Kupuje" EntitySet="Kupujes" />
+    </AssociationSet>
+    <AssociationSet Name="ProdavacRadnik" Association="Model1.Store.ProdavacRadnik">
+      <End Role="Prodavac" EntitySet="Prodavacs" />
+      <End Role="Radnik" EntitySet="Radniks" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Butiks">
+    <Key>
+      <PropertyRef Name="PIB" />
+    </Key>
+    <Property Name="PIB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Naziv" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Adresa" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kasas">
+    <Key>
+      <PropertyRef Name="IdKase" />
+    </Key>
+    <Property Name="IdKase" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ButikPIB" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Radniks">
+    <Key>
+      <PropertyRef Name="JMBG" />
+    </Key>
+    <Property Name="JMBG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImeRadnika" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PrezimeRadnika" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TipRadnika" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ButikPIB" Type="int" Nullable="false" />
+    <Property Name="Menadzer_JMBGMenadzera" Type="int" Nullable="false" />
+    <Property Name="Prodavac_JMBGProdavca" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Racuns">
+    <Key>
+      <PropertyRef Name="IdRacuna" />
+    </Key>
+    <Property Name="IdRacuna" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ukupno" Type="int" Nullable="false" />
+    <Property Name="KasaIdKase" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proizvods">
+    <Key>
+      <PropertyRef Name="KodProizvoda" />
+    </Key>
+    <Property Name="KodProizvoda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cijena" Type="int" Nullable="false" />
+    <Property Name="NazivProizvoda" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ButikPIB" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Kupacs">
+    <Key>
+      <PropertyRef Name="IdKupca" />
+    </Key>
+    <Property Name="IdKupca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kupujes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="KupacIdKupca" Type="int" Nullable="false" />
+    <Property Name="ProizvodKodProizvoda" Type="int" Nullable="false" />
+    <Property Name="RacunIdRacuna" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Prodavacs">
+    <Key>
+      <PropertyRef Name="JMBGProdavca" />
+    </Key>
+    <Property Name="JMBGProdavca" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Menadzers">
+    <Key>
+      <PropertyRef Name="JMBGMenadzera" />
+    </Key>
+    <Property Name="JMBGMenadzera" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ButikRadnik">
+    <End Role="Butik" Type="Model1.Store.Butiks" Multiplicity="1" />
+    <End Role="Radnik" Type="Model1.Store.Radniks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Butik">
+        <PropertyRef Name="PIB" />
+      </Principal>
+      <Dependent Role="Radnik">
+        <PropertyRef Name="ButikPIB" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ButikProizvod">
+    <End Role="Butik" Type="Model1.Store.Butiks" Multiplicity="0..1" />
+    <End Role="Proizvod" Type="Model1.Store.Proizvods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Butik">
+        <PropertyRef Name="PIB" />
+      </Principal>
+      <Dependent Role="Proizvod">
+        <PropertyRef Name="ButikPIB" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ButikKasa">
+    <End Role="Butik" Type="Model1.Store.Butiks" Multiplicity="0..1" />
+    <End Role="Kasa" Type="Model1.Store.Kasas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Butik">
+        <PropertyRef Name="PIB" />
+      </Principal>
+      <Dependent Role="Kasa">
+        <PropertyRef Name="ButikPIB" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MenadzerRadnik">
+    <End Role="Menadzer" Type="Model1.Store.Menadzers" Multiplicity="1" />
+    <End Role="Radnik" Type="Model1.Store.Radniks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menadzer">
+        <PropertyRef Name="JMBGMenadzera" />
+      </Principal>
+      <Dependent Role="Radnik">
+        <PropertyRef Name="Menadzer_JMBGMenadzera" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RacunKupuje">
+    <End Role="Racun" Type="Model1.Store.Racuns" Multiplicity="1" />
+    <End Role="Kupuje" Type="Model1.Store.Kupujes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Racun">
+        <PropertyRef Name="IdRacuna" />
+      </Principal>
+      <Dependent Role="Kupuje">
+        <PropertyRef Name="RacunIdRacuna" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="KasaRacun">
+    <End Role="Kasa" Type="Model1.Store.Kasas" Multiplicity="1" />
+    <End Role="Racun" Type="Model1.Store.Racuns" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kasa">
+        <PropertyRef Name="IdKase" />
+      </Principal>
+      <Dependent Role="Racun">
+        <PropertyRef Name="KasaIdKase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProizvodKupuje">
+    <End Role="Proizvod" Type="Model1.Store.Proizvods" Multiplicity="1" />
+    <End Role="Kupuje" Type="Model1.Store.Kupujes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proizvod">
+        <PropertyRef Name="KodProizvoda" />
+      </Principal>
+      <Dependent Role="Kupuje">
+        <PropertyRef Name="ProizvodKodProizvoda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KupacKupuje">
+    <End Role="Kupac" Type="Model1.Store.Kupacs" Multiplicity="1" />
+    <End Role="Kupuje" Type="Model1.Store.Kupujes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kupac">
+        <PropertyRef Name="IdKupca" />
+      </Principal>
+      <Dependent Role="Kupuje">
+        <PropertyRef Name="KupacIdKupca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProdavacRadnik">
+    <End Role="Prodavac" Type="Model1.Store.Prodavacs" Multiplicity="1" />
+    <End Role="Radnik" Type="Model1.Store.Radniks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prodavac">
+        <PropertyRef Name="JMBGProdavca" />
+      </Principal>
+      <Dependent Role="Radnik">
+        <PropertyRef Name="Prodavac_JMBGProdavca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Butiks" EntityType="Model1.Butik" />
+          <EntitySet Name="Kasas" EntityType="Model1.Kasa" />
+          <EntitySet Name="Radniks" EntityType="Model1.Radnik" />
+          <EntitySet Name="Racuns" EntityType="Model1.Racun" />
+          <EntitySet Name="Proizvods" EntityType="Model1.Proizvod" />
+          <EntitySet Name="Kupacs" EntityType="Model1.Kupac" />
+          <EntitySet Name="Kupujes" EntityType="Model1.Kupuje" />
+          <EntitySet Name="Prodavacs" EntityType="Model1.Prodavac" />
+          <EntitySet Name="Menadzers" EntityType="Model1.Menadzer" />
+          <AssociationSet Name="ButikRadnik" Association="Model1.ButikRadnik">
+            <End Role="Butik" EntitySet="Butiks" />
+            <End Role="Radnik" EntitySet="Radniks" />
+          </AssociationSet>
+          <AssociationSet Name="ButikProizvod" Association="Model1.ButikProizvod">
+            <End Role="Butik" EntitySet="Butiks" />
+            <End Role="Proizvod" EntitySet="Proizvods" />
+          </AssociationSet>
+          <AssociationSet Name="ButikKasa" Association="Model1.ButikKasa">
+            <End Role="Butik" EntitySet="Butiks" />
+            <End Role="Kasa" EntitySet="Kasas" />
+          </AssociationSet>
+          <AssociationSet Name="MenadzerRadnik" Association="Model1.MenadzerRadnik">
+            <End Role="Menadzer" EntitySet="Menadzers" />
+            <End Role="Radnik" EntitySet="Radniks" />
+          </AssociationSet>
+          <AssociationSet Name="RacunKupuje" Association="Model1.RacunKupuje">
+            <End Role="Racun" EntitySet="Racuns" />
+            <End Role="Kupuje" EntitySet="Kupujes" />
+          </AssociationSet>
+          <AssociationSet Name="KasaRacun" Association="Model1.KasaRacun">
+            <End Role="Kasa" EntitySet="Kasas" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
+          <AssociationSet Name="ProizvodKupuje" Association="Model1.ProizvodKupuje">
+            <End Role="Proizvod" EntitySet="Proizvods" />
+            <End Role="Kupuje" EntitySet="Kupujes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KupacKupuje" Association="Model1.FK_KupacKupuje">
+            <End Role="Kupac" EntitySet="Kupacs" />
+            <End Role="Kupuje" EntitySet="Kupujes" />
+          </AssociationSet>
+          <AssociationSet Name="ProdavacRadnik" Association="Model1.ProdavacRadnik">
+            <End Role="Prodavac" EntitySet="Prodavacs" />
+            <End Role="Radnik" EntitySet="Radniks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Butik">
+          <Key>
+            <PropertyRef Name="PIB" />
+          </Key>
+          <Property Name="PIB" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Adresa" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Radniks" Relationship="Model1.ButikRadnik" FromRole="Butik" ToRole="Radnik" />
+          <NavigationProperty Name="Proizvods" Relationship="Model1.ButikProizvod" FromRole="Butik" ToRole="Proizvod" />
+          <NavigationProperty Name="Kasas" Relationship="Model1.ButikKasa" FromRole="Butik" ToRole="Kasa" />
+        </EntityType>
+        <EntityType Name="Kasa">
+          <Key>
+            <PropertyRef Name="IdKase" />
+          </Key>
+          <Property Name="IdKase" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ButikPIB" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Butik" Relationship="Model1.ButikKasa" FromRole="Kasa" ToRole="Butik" />
+          <NavigationProperty Name="Racuns" Relationship="Model1.KasaRacun" FromRole="Kasa" ToRole="Racun" />
+        </EntityType>
+        <EntityType Name="Radnik">
+          <Key>
+            <PropertyRef Name="JMBG" />
+          </Key>
+          <Property Name="JMBG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImeRadnika" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PrezimeRadnika" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TipRadnika" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ButikPIB" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Butik" Relationship="Model1.ButikRadnik" FromRole="Radnik" ToRole="Butik" />
+          <NavigationProperty Name="Menadzer" Relationship="Model1.MenadzerRadnik" FromRole="Radnik" ToRole="Menadzer" />
+          <NavigationProperty Name="Prodavac" Relationship="Model1.ProdavacRadnik" FromRole="Radnik" ToRole="Prodavac" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="IdRacuna" />
+          </Key>
+          <Property Name="IdRacuna" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ukupno" Type="Int32" Nullable="false" />
+          <Property Name="KasaIdKase" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kasa" Relationship="Model1.KasaRacun" FromRole="Racun" ToRole="Kasa" />
+        </EntityType>
+        <EntityType Name="Proizvod">
+          <Key>
+            <PropertyRef Name="KodProizvoda" />
+          </Key>
+          <Property Name="KodProizvoda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cijena" Type="Int32" Nullable="false" />
+          <Property Name="NazivProizvoda" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ButikPIB" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Butik" Relationship="Model1.ButikProizvod" FromRole="Proizvod" ToRole="Butik" />
+        </EntityType>
+        <EntityType Name="Kupac">
+          <Key>
+            <PropertyRef Name="IdKupca" />
+          </Key>
+          <Property Name="IdKupca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Kupuje">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="KupacIdKupca" Type="Int32" Nullable="false" />
+          <Property Name="ProizvodKodProizvoda" Type="Int32" Nullable="false" />
+          <Property Name="RacunIdRacuna" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Racun" Relationship="Model1.RacunKupuje" FromRole="Kupuje" ToRole="Racun" />
+          <NavigationProperty Name="Proizvod" Relationship="Model1.ProizvodKupuje" FromRole="Kupuje" ToRole="Proizvod" />
+          <NavigationProperty Name="Kupac" Relationship="Model1.FK_KupacKupuje" FromRole="Kupuje" ToRole="Kupac" />
+        </EntityType>
+        <EntityType Name="Prodavac">
+          <Key>
+            <PropertyRef Name="JMBGProdavca" />
+          </Key>
+          <Property Name="JMBGProdavca" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Radniks" Relationship="Model1.ProdavacRadnik" FromRole="Prodavac" ToRole="Radnik" />
+        </EntityType>
+        <EntityType Name="Menadzer">
+          <Key>
+            <PropertyRef Name="JMBGMenadzera" />
+          </Key>
+          <Property Name="JMBGMenadzera" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Radniks" Relationship="Model1.MenadzerRadnik" FromRole="Menadzer" ToRole="Radnik" />
+        </EntityType>
+        <Association Name="ButikRadnik">
+          <End Type="Model1.Butik" Role="Butik" Multiplicity="1" />
+          <End Type="Model1.Radnik" Role="Radnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Butik">
+              <PropertyRef Name="PIB" />
+            </Principal>
+            <Dependent Role="Radnik">
+              <PropertyRef Name="ButikPIB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ButikProizvod">
+          <End Type="Model1.Butik" Role="Butik" Multiplicity="0..1" />
+          <End Type="Model1.Proizvod" Role="Proizvod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Butik">
+              <PropertyRef Name="PIB" />
+            </Principal>
+            <Dependent Role="Proizvod">
+              <PropertyRef Name="ButikPIB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ButikKasa">
+          <End Type="Model1.Butik" Role="Butik" Multiplicity="0..1" />
+          <End Type="Model1.Kasa" Role="Kasa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Butik">
+              <PropertyRef Name="PIB" />
+            </Principal>
+            <Dependent Role="Kasa">
+              <PropertyRef Name="ButikPIB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MenadzerRadnik">
+          <End Type="Model1.Menadzer" Role="Menadzer" Multiplicity="1" />
+          <End Type="Model1.Radnik" Role="Radnik" Multiplicity="*" />
+        </Association>
+        <Association Name="RacunKupuje">
+          <End Type="Model1.Racun" Role="Racun" Multiplicity="1" />
+          <End Type="Model1.Kupuje" Role="Kupuje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="IdRacuna" />
+            </Principal>
+            <Dependent Role="Kupuje">
+              <PropertyRef Name="RacunIdRacuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KasaRacun">
+          <End Type="Model1.Kasa" Role="Kasa" Multiplicity="1" />
+          <End Type="Model1.Racun" Role="Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kasa">
+              <PropertyRef Name="IdKase" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="KasaIdKase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProizvodKupuje">
+          <End Type="Model1.Proizvod" Role="Proizvod" Multiplicity="1" />
+          <End Type="Model1.Kupuje" Role="Kupuje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proizvod">
+              <PropertyRef Name="KodProizvoda" />
+            </Principal>
+            <Dependent Role="Kupuje">
+              <PropertyRef Name="ProizvodKodProizvoda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KupacKupuje">
+          <End Type="Model1.Kupac" Role="Kupac" Multiplicity="1" />
+          <End Type="Model1.Kupuje" Role="Kupuje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kupac">
+              <PropertyRef Name="IdKupca" />
+            </Principal>
+            <Dependent Role="Kupuje">
+              <PropertyRef Name="KupacIdKupca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProdavacRadnik">
+          <End Type="Model1.Prodavac" Role="Prodavac" Multiplicity="1" />
+          <End Type="Model1.Radnik" Role="Radnik" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container1">
+    <EntitySetMapping Name="Butiks">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Butik)">
+        <MappingFragment StoreEntitySet="Butiks">
+          <ScalarProperty Name="PIB" ColumnName="PIB" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kasas">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Kasa)">
+        <MappingFragment StoreEntitySet="Kasas">
+          <ScalarProperty Name="IdKase" ColumnName="IdKase" />
+          <ScalarProperty Name="ButikPIB" ColumnName="ButikPIB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Radniks">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Radnik)">
+        <MappingFragment StoreEntitySet="Radniks">
+          <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+          <ScalarProperty Name="ImeRadnika" ColumnName="ImeRadnika" />
+          <ScalarProperty Name="PrezimeRadnika" ColumnName="PrezimeRadnika" />
+          <ScalarProperty Name="TipRadnika" ColumnName="TipRadnika" />
+          <ScalarProperty Name="ButikPIB" ColumnName="ButikPIB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Racuns">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Racun)">
+        <MappingFragment StoreEntitySet="Racuns">
+          <ScalarProperty Name="IdRacuna" ColumnName="IdRacuna" />
+          <ScalarProperty Name="Ukupno" ColumnName="Ukupno" />
+          <ScalarProperty Name="KasaIdKase" ColumnName="KasaIdKase" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proizvods">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Proizvod)">
+        <MappingFragment StoreEntitySet="Proizvods">
+          <ScalarProperty Name="KodProizvoda" ColumnName="KodProizvoda" />
+          <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+          <ScalarProperty Name="NazivProizvoda" ColumnName="NazivProizvoda" />
+          <ScalarProperty Name="ButikPIB" ColumnName="ButikPIB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kupacs">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Kupac)">
+        <MappingFragment StoreEntitySet="Kupacs">
+          <ScalarProperty Name="IdKupca" ColumnName="IdKupca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kupujes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Kupuje)">
+        <MappingFragment StoreEntitySet="Kupujes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="KupacIdKupca" ColumnName="KupacIdKupca" />
+          <ScalarProperty Name="ProizvodKodProizvoda" ColumnName="ProizvodKodProizvoda" />
+          <ScalarProperty Name="RacunIdRacuna" ColumnName="RacunIdRacuna" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prodavacs">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Prodavac)">
+        <MappingFragment StoreEntitySet="Prodavacs">
+          <ScalarProperty Name="JMBGProdavca" ColumnName="JMBGProdavca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menadzers">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Menadzer)">
+        <MappingFragment StoreEntitySet="Menadzers">
+          <ScalarProperty Name="JMBGMenadzera" ColumnName="JMBGMenadzera" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MenadzerRadnik" TypeName="Model1.MenadzerRadnik" StoreEntitySet="Radniks">
+      <EndProperty Name="Menadzer">
+        <ScalarProperty Name="JMBGMenadzera" ColumnName="Menadzer_JMBGMenadzera" />
+      </EndProperty>
+      <EndProperty Name="Radnik">
+        <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProdavacRadnik" TypeName="Model1.ProdavacRadnik" StoreEntitySet="Radniks">
+      <EndProperty Name="Prodavac">
+        <ScalarProperty Name="JMBGProdavca" ColumnName="Prodavac_JMBGProdavca" />
+      </EndProperty>
+      <EndProperty Name="Radnik">
+        <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

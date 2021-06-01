@@ -1,0 +1,14 @@
+﻿<Window x:Class="WpfApp1.Views.AddRacunView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.Views"
+        mc:Ignorable="d"
+        Title="AddRacunView" Height="450" Width="800">
+    <Grid Background="Gray">
+        <Label Content="ID RACUNA:" FontSize="25" HorizontalAlignment="Left" Height="51" Margin="81,99,0,0" VerticalAlignment="Top" Width="157"/>
+        <TextBox HorizontalAlignment="Left" Height="51" Margin="416,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
+        
+    </Grid>
+</Window>
